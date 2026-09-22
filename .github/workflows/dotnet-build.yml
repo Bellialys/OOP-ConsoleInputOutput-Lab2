@@ -28,7 +28,8 @@ jobs:
       - name: Smoke test — startup, menu and leap year 2024
         shell: bash
         run: |
-          printf '\n1\n2024\n\n0\n' |             dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-basic.txt
+          printf '\n1\n2024\n\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-basic.txt
 
           grep -F "ГОЛОВНЕ МЕНЮ" smoke-basic.txt
           grep -F "1. Перевірка року на високосність" smoke-basic.txt
@@ -38,7 +39,8 @@ jobs:
       - name: Smoke test — invalid input and leap-year boundary cases
         shell: bash
         run: |
-          printf '\nabc\n9\n1\nabc\n0\n-2024\n1900\n\n1\n2000\n\n1\n2025\n\n1\n2100\n\n0\n' |             dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-validation.txt
+          printf '\nabc\n9\n1\nabc\n0\n-2024\n1900\n\n1\n2000\n\n1\n2025\n\n1\n2100\n\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-validation.txt
 
           grep -F "Помилка! Введіть ціле число від 0 до 4." smoke-validation.txt
           grep -F "Помилка! Введіть додатний цілий номер року." smoke-validation.txt
@@ -46,3 +48,17 @@ jobs:
           grep -F "2000 рік є високосним." smoke-validation.txt
           grep -F "2025 рік не є високосним." smoke-validation.txt
           grep -F "2100 рік не є високосним." smoke-validation.txt
+
+      - name: Smoke test — triangle task
+        shell: bash
+        run: |
+          printf '\n2\nabc\n0\n-1\n4\n\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-triangle.txt
+
+          grep -F "ЗАВДАННЯ 2. ЧИСЛОВИЙ ТРИКУТНИК" smoke-triangle.txt
+          grep -F "Помилка! Введіть додатну цілу висоту трикутника." smoke-triangle.txt
+          grep -F "      1" smoke-triangle.txt
+          grep -F "    2 2" smoke-triangle.txt
+          grep -F "  3 3 3" smoke-triangle.txt
+          grep -F "4 4 4 4" smoke-triangle.txt
+          grep -F "ГОЛОВНЕ МЕНЮ" smoke-triangle.txt
