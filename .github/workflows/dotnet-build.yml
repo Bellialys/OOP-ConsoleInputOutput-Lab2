@@ -19,11 +19,14 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
+      - name: Validate solution
+        run: dotnet sln OOP-ConsoleInputOutput-Lab2.sln list
+
       - name: Restore
-        run: dotnet restore OOPConsoleInputOutputLab2.csproj
+        run: dotnet restore OOP-ConsoleInputOutput-Lab2.sln
 
       - name: Build
-        run: dotnet build OOPConsoleInputOutputLab2.csproj --configuration Release --no-restore
+        run: dotnet build OOP-ConsoleInputOutput-Lab2.sln --configuration Release --no-restore --warnaserror
 
       - name: Smoke test — startup, menu and leap year 2024
         shell: bash

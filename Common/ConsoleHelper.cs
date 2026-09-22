@@ -42,16 +42,4 @@ internal static class ConsoleHelper
         Console.WriteLine(message);
         Console.ReadLine();
     }
-
-    public static void ShowPlaceholder(string title, string description)
-    {
-        Console.Clear();
-        WriteHeader(title);
-        Console.WriteLine(description);
-        Console.WriteLine();
-        Console.WriteLine("На цьому етапі підготовлено інтерфейс модуля.");
-        Console.WriteLine("Алгоритм завдання буде додано на наступному етапі.");
-        Console.WriteLine();
-        Pause();
-    }
 }
