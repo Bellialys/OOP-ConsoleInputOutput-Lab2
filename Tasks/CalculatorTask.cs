@@ -88,8 +88,17 @@ internal sealed class CalculatorTask : IConsoleTask
 
             if (expectNumber)
             {
+                int numberStartIndex = index;
+
                 if (!TryReadNumber(expression, ref index, out decimal number))
                 {
+                    if (index > numberStartIndex)
+                    {
+                        errorMessage =
+                            "Некоректне число або число виходить за допустимий діапазон.";
+                        return false;
+                    }
+
                     char unexpectedSymbol = expression[index];
 
                     errorMessage = IsOperator(unexpectedSymbol)
