@@ -6,7 +6,7 @@ internal sealed class MillionaireTask : IConsoleTask
 {
     public int Number => 3;
 
-    public string Title => "Гра "Хто хоче стати мільйонером?"";
+    public string Title => "Гра «Хто хоче стати мільйонером?»";
 
     public void Run()
     {
