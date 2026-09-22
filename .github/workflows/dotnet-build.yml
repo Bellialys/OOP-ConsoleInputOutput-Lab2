@@ -86,3 +86,28 @@ jobs:
           grep -F "Неправильна відповідь!" smoke-millionaire-loss.txt
           grep -F "Ваш підсумковий рахунок: 100 із 500 балів." smoke-millionaire-loss.txt
           grep -F "ГОЛОВНЕ МЕНЮ" smoke-millionaire-loss.txt
+
+      - name: Smoke test — calculator example and precedence
+        shell: bash
+        run: |
+          printf '\n4\n5 + 5 * 10 + 4 / 2 - 3\n\n4\n2 + 3 * 4\n\n4\n8 / 2 * 2\n\n4\n20 - 5 - 3\n\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-calculator.txt
+
+          grep -F "Результат: 54" smoke-calculator.txt
+          grep -F "Результат: 14" smoke-calculator.txt
+          grep -F "Результат: 8" smoke-calculator.txt
+          grep -F "Результат: 12" smoke-calculator.txt
+          grep -F "ГОЛОВНЕ МЕНЮ" smoke-calculator.txt
+
+      - name: Smoke test — calculator validation
+        shell: bash
+        run: |
+          printf '\n4\n\n5 +\n5 ** 2\nhello\n5 / 0\n10 / 4\n\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-calculator-errors.txt
+
+          grep -F "Помилка! Вираз не може бути порожнім." smoke-calculator-errors.txt
+          grep -F "Помилка! Вираз не може закінчуватися оператором." smoke-calculator-errors.txt
+          grep -F "Помилка! Очікувалося число." smoke-calculator-errors.txt
+          grep -F "Помилка! Невідомий символ або пропущений оператор: 'h'." smoke-calculator-errors.txt
+          grep -F "Помилка! Ділення на нуль неможливе." smoke-calculator-errors.txt
+          grep -F "Результат: 2.5" smoke-calculator-errors.txt
