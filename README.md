@@ -42,7 +42,8 @@ OOP-ConsoleInputOutput-Lab2/
 │  ├─ ASSIGNMENT.md
 │  ├─ PROJECT-PLAN.md
 │  ├─ REQUIREMENTS.md
-│  └─ TESTING.md
+│  ├─ TESTING.md
+│  └─ SUBMISSION-CHECKLIST.md
 ├─ OOP-ConsoleInputOutput-Lab2.sln
 ├─ OOPConsoleInputOutputLab2.csproj
 ├─ Program.cs
@@ -119,6 +120,8 @@ dotnet run --project OOPConsoleInputOutputLab2.csproj
 
 Детальний перелік сценаріїв: [План тестування](docs/TESTING.md).
 
+Окремий список дій перед здачею: [Чекліст перед здачею](docs/SUBMISSION-CHECKLIST.md).
+
 ## Матеріали для здачі
 
 Перед здачею залишиться зробити скріншоти:
@@ -141,3 +144,4 @@ dotnet run --project OOPConsoleInputOutputLab2.csproj
 - [План проєкту](docs/PROJECT-PLAN.md)
 - [Функціональні вимоги](docs/REQUIREMENTS.md)
 - [План тестування](docs/TESTING.md)
+- [Чекліст перед здачею](docs/SUBMISSION-CHECKLIST.md)

@@ -7,10 +7,11 @@ internal static class ConsoleHelper
     public static void WriteHeader(string title)
     {
         string border = new('=', HeaderWidth);
+        int leftPadding = Math.Max(0, (HeaderWidth - title.Length) / 2);
 
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine(border);
-        Console.WriteLine(title);
+        Console.WriteLine($"{new string(' ', leftPadding)}{title}");
         Console.WriteLine(border);
         Console.ResetColor();
         Console.WriteLine();

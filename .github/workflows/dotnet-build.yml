@@ -117,3 +117,48 @@ jobs:
           grep -F "Помилка! Ділення на нуль неможливе." smoke-calculator-errors.txt
           grep -F "Помилка! Некоректне число або число виходить за допустимий діапазон." smoke-calculator-errors.txt
           grep -F "Результат: 2.5" smoke-calculator-errors.txt
+
+      - name: Final regression — empty menu input and triangle boundaries
+        shell: bash
+        run: |
+          printf '\n\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-menu-empty.txt
+
+          grep -F "Помилка! Введіть ціле число від 0 до 4." smoke-menu-empty.txt
+          grep -F "Дякуємо за використання програми!" smoke-menu-empty.txt
+
+          printf '\n2\n1\n\n2\n10\n\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-triangle-boundaries.txt
+
+          grep -x "1" smoke-triangle-boundaries.txt
+          grep -F "10 10 10 10 10 10 10 10 10 10" smoke-triangle-boundaries.txt
+
+      - name: Final regression — millionaire score boundaries
+        shell: bash
+        run: |
+          printf '\n3\n1\n\n3\n2\n3\n1\n\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-millionaire-scores.txt
+
+          grep -F "Ваш підсумковий рахунок: 0 із 500 балів." smoke-millionaire-scores.txt
+          grep -F "Ваш підсумковий рахунок: 200 із 500 балів." smoke-millionaire-scores.txt
+
+      - name: Final regression — calculator remaining cases and overflow
+        shell: bash
+        run: |
+          printf '\n4\n20 / 5 + 3\n\n4\n10 - 2 * 3\n\n4\n1 + 2 + 3\n\n4\n5\n\n4\n100000000000000000000 * 100000000000000000000\n1 + 1\n\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-calculator-final.txt
+
+          grep -F "Результат: 7" smoke-calculator-final.txt
+          grep -F "Результат: 4" smoke-calculator-final.txt
+          grep -F "Результат: 6" smoke-calculator-final.txt
+          grep -F "Результат: 5" smoke-calculator-final.txt
+          grep -F "Помилка! Результат виходить за допустимий діапазон чисел." smoke-calculator-final.txt
+          grep -F "Результат: 2" smoke-calculator-final.txt
+
+      - name: Final regression — no unfinished C# placeholders
+        shell: bash
+        run: |
+          if grep -R -n -E 'TODO|FIXME|ShowPlaceholder' --include='*.cs' .; then
+            echo "Found unfinished placeholder text in C# sources."
+            exit 1
+          fi
