@@ -90,7 +90,12 @@ internal sealed class CalculatorTask : IConsoleTask
             {
                 if (!TryReadNumber(expression, ref index, out decimal number))
                 {
-                    errorMessage = "Очікувалося число.";
+                    char unexpectedSymbol = expression[index];
+
+                    errorMessage = IsOperator(unexpectedSymbol)
+                        ? "Очікувалося число."
+                        : $"Невідомий символ: '{unexpectedSymbol}'.";
+
                     return false;
                 }
 

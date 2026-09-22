@@ -108,6 +108,6 @@ jobs:
           grep -F "Помилка! Вираз не може бути порожнім." smoke-calculator-errors.txt
           grep -F "Помилка! Вираз не може закінчуватися оператором." smoke-calculator-errors.txt
           grep -F "Помилка! Очікувалося число." smoke-calculator-errors.txt
-          grep -F "Помилка! Невідомий символ або пропущений оператор: 'h'." smoke-calculator-errors.txt
+          grep -F "Помилка! Невідомий символ: 'h'." smoke-calculator-errors.txt
           grep -F "Помилка! Ділення на нуль неможливе." smoke-calculator-errors.txt
           grep -F "Результат: 2.5" smoke-calculator-errors.txt
