@@ -1,4 +1,4 @@
-name: .NET build
+name: .NET build and smoke tests
 
 on:
   push:
@@ -24,3 +24,25 @@ jobs:
 
       - name: Build
         run: dotnet build OOPConsoleInputOutputLab2.csproj --configuration Release --no-restore
+
+      - name: Smoke test — startup, menu and leap year 2024
+        shell: bash
+        run: |
+          printf '\n1\n2024\n\n0\n' |             dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-basic.txt
+
+          grep -F "ГОЛОВНЕ МЕНЮ" smoke-basic.txt
+          grep -F "1. Перевірка року на високосність" smoke-basic.txt
+          grep -F "2024 рік є високосним." smoke-basic.txt
+          grep -F "Дякуємо за використання програми!" smoke-basic.txt
+
+      - name: Smoke test — invalid input and leap-year boundary cases
+        shell: bash
+        run: |
+          printf '\nabc\n9\n1\nabc\n0\n-2024\n1900\n\n1\n2000\n\n1\n2025\n\n1\n2100\n\n0\n' |             dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-validation.txt
+
+          grep -F "Помилка! Введіть ціле число від 0 до 4." smoke-validation.txt
+          grep -F "Помилка! Введіть додатний цілий номер року." smoke-validation.txt
+          grep -F "1900 рік не є високосним." smoke-validation.txt
+          grep -F "2000 рік є високосним." smoke-validation.txt
+          grep -F "2025 рік не є високосним." smoke-validation.txt
+          grep -F "2100 рік не є високосним." smoke-validation.txt
