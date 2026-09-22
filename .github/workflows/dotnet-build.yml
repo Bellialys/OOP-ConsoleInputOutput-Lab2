@@ -62,3 +62,27 @@ jobs:
           grep -F "  3 3 3" smoke-triangle.txt
           grep -F "4 4 4 4" smoke-triangle.txt
           grep -F "ГОЛОВНЕ МЕНЮ" smoke-triangle.txt
+
+      - name: Smoke test — millionaire full game
+        shell: bash
+        run: |
+          printf '\n3\n2\n3\n2\n3\n3\n\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-millionaire-win.txt
+
+          grep -F "Питання 1 з 5" smoke-millionaire-win.txt
+          grep -F "Синього та жовтого" smoke-millionaire-win.txt
+          grep -F "Київ" smoke-millionaire-win.txt
+          grep -F "Вітаємо! Ви правильно відповіли на всі 5 питань!" smoke-millionaire-win.txt
+          grep -F "Ваш підсумковий рахунок: 500 із 500 балів." smoke-millionaire-win.txt
+          grep -F "ГОЛОВНЕ МЕНЮ" smoke-millionaire-win.txt
+
+      - name: Smoke test — millionaire invalid input and wrong answer
+        shell: bash
+        run: |
+          printf '\n3\n7\nabc\n2\n1\n\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-millionaire-loss.txt
+
+          grep -F "Помилка! Введіть ціле число від 1 до 4." smoke-millionaire-loss.txt
+          grep -F "Неправильна відповідь!" smoke-millionaire-loss.txt
+          grep -F "Ваш підсумковий рахунок: 100 із 500 балів." smoke-millionaire-loss.txt
+          grep -F "ГОЛОВНЕ МЕНЮ" smoke-millionaire-loss.txt
