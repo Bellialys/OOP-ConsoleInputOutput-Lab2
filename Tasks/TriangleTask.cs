@@ -44,11 +44,13 @@ internal sealed class TriangleTask : IConsoleTask
     private static void DrawTriangle(int height)
     {
         int numberWidth = height.ToString().Length;
-        int cellWidth = numberWidth + 1;
+        int baseWidth = height * numberWidth + (height - 1);
 
         for (int row = 1; row <= height; row++)
         {
-            int indent = (height - row) * cellWidth;
+            int rowWidth = row * numberWidth + (row - 1);
+            int indent = (baseWidth - rowWidth) / 2;
+
             Console.Write(new string(' ', indent));
 
             for (int column = 1; column <= row; column++)

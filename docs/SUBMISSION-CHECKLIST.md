@@ -57,9 +57,9 @@ dotnet run --project OOPConsoleInputOutputLab2.csproj
 На екрані має бути:
 
 ```text
-      1
-    2 2
-  3 3 3
+   1
+  2 2
+ 3 3 3
 4 4 4 4
 ```
 

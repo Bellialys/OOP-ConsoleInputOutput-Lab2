@@ -60,10 +60,10 @@ jobs:
 
           grep -F "ЗАВДАННЯ 2. ЧИСЛОВИЙ ТРИКУТНИК" smoke-triangle.txt
           grep -F "Помилка! Введіть додатну цілу висоту трикутника." smoke-triangle.txt
-          grep -F "      1" smoke-triangle.txt
-          grep -F "    2 2" smoke-triangle.txt
-          grep -F "  3 3 3" smoke-triangle.txt
-          grep -F "4 4 4 4" smoke-triangle.txt
+          grep -x "   1" smoke-triangle.txt
+          grep -x "  2 2" smoke-triangle.txt
+          grep -x " 3 3 3" smoke-triangle.txt
+          grep -x "4 4 4 4" smoke-triangle.txt
           grep -F "ГОЛОВНЕ МЕНЮ" smoke-triangle.txt
 
       - name: Smoke test — millionaire full game
