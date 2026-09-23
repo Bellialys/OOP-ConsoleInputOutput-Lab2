@@ -17,7 +17,7 @@ internal sealed class CalculatorTask : IConsoleTask
         Console.WriteLine("Підтримувані операції: +  -  *  /");
         Console.WriteLine("Множення та ділення виконуються раніше додавання та віднімання.");
         Console.WriteLine("Приклад: 5 + 5 * 10 + 4 / 2 - 3");
-        Console.WriteLine();
+        Console.WriteLine("Алгоритм: Двухпроходный алгоритм вычисления арифметического выражения с предварительным разбором строки на числа и операторы (Помощник GPT)");
 
         while (true)
         {

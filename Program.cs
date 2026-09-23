@@ -30,8 +30,9 @@ internal static class Program
         Console.ForegroundColor = ConsoleColor.Cyan;
 
         Console.WriteLine("╔════════════════════════════════════════════╗");
-        Console.WriteLine("║        ОБ'ЄКТНО-ОРІЄНТОВАНЕ                ║");
+        Console.WriteLine("║           ОБ'ЄКТНО-ОРІЄНТОВАНЕ             ║");
         Console.WriteLine("║             ПРОГРАМУВАННЯ                  ║");
+        Console.WriteLine("║                                            ║");
         Console.WriteLine("║                                            ║");
         Console.WriteLine("║       Консольні додатки Input/Output       ║");
         Console.WriteLine("╚════════════════════════════════════════════╝");
