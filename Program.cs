@@ -49,7 +49,7 @@ internal static class Program
         while (true)
         {
             Console.Clear();
-            ConsoleHelper.WriteHeader("ГОЛОВНЕ МЕНЮ");
+            ConsoleHelper.WriteMainMenuHeader("ФІТ-2-15", "ГОЛОВНЕ МЕНЮ");
 
             foreach (IConsoleTask task in tasks)
             {
