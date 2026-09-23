@@ -73,7 +73,7 @@ jobs:
             dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-millionaire-win.txt
 
           grep -F "1. Демо-версія (навчальна) — 5 питань" smoke-millionaire-win.txt
-          grep -F "2. Повна гра — 15 питань за мотивами реальних випусків" smoke-millionaire-win.txt
+          grep -F "2. Повна гра — 15 питань із реальних випусків" smoke-millionaire-win.txt
           grep -F "Питання 1 з 5" smoke-millionaire-win.txt
           grep -F "Синього та жовтого" smoke-millionaire-win.txt
           grep -F "Київ" smoke-millionaire-win.txt
@@ -178,3 +178,46 @@ jobs:
           grep -F "Гру завершено! Ви відповіли на всі 15 питань." smoke-millionaire-full.txt
           grep -F "Ваш підсумковий рахунок:" smoke-millionaire-full.txt
           grep -F "ГОЛОВНЕ МЕНЮ" smoke-millionaire-full.txt
+
+      - name: Final regression — triangle height 29 symmetry
+        shell: bash
+        run: |
+          printf '\n2\n29\n\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-triangle-29.txt
+
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+
+          lines = Path("smoke-triangle-29.txt").read_text(encoding="utf-8").splitlines()
+          rows = [line for line in lines if re.fullmatch(r"\s*\d+(?: +\d+)*", line)]
+
+          assert len(rows) == 29, f"Expected 29 triangle rows, got {len(rows)}"
+
+          base_width = len(rows[-1])
+          assert base_width == 86, f"Unexpected base width: {base_width}"
+
+          for row in rows:
+              left = len(row) - len(row.lstrip())
+              right = base_width - len(row)
+              assert abs(left - right) <= 1, (
+                  f"Row is not centered: left={left}, right={right}, row={row!r}"
+              )
+
+          assert rows[-1] == " ".join(["29"] * 29)
+          PY
+
+      - name: Final regression — millionaire submenu and perfect full score
+        shell: bash
+        run: |
+          printf '\n3\n0\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-millionaire-back.txt
+
+          test "$(grep -Fc "ГОЛОВНЕ МЕНЮ" smoke-millionaire-back.txt)" -eq 2
+
+          printf '\n3\n2\n3\n2\n4\n3\n3\n2\n4\n3\n3\n3\n4\n2\n4\n2\n3\n\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-millionaire-perfect.txt
+
+          grep -F "Питання 15 з 15" smoke-millionaire-perfect.txt
+          grep -F "Вітаємо! Ви правильно відповіли на всі 15 питань!" smoke-millionaire-perfect.txt
+          grep -F "Ваш підсумковий рахунок: 1500 із 1500 балів." smoke-millionaire-perfect.txt
