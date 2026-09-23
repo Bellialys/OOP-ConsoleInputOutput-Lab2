@@ -79,16 +79,17 @@ jobs:
           grep -F "Ваш підсумковий рахунок: 500 із 500 балів." smoke-millionaire-win.txt
           grep -F "ГОЛОВНЕ МЕНЮ" smoke-millionaire-win.txt
 
-      - name: Smoke test — millionaire invalid input and wrong answer
+      - name: Smoke test — millionaire invalid input and mixed answers
         shell: bash
         run: |
-          printf '\n3\n7\nabc\n2\n1\n\n0\n' |
-            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-millionaire-loss.txt
+          printf '\n3\n7\nabc\n2\n1\n1\n1\n1\n\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-millionaire-mixed.txt
 
-          grep -F "Помилка! Введіть ціле число від 1 до 4." smoke-millionaire-loss.txt
-          grep -F "Неправильна відповідь!" smoke-millionaire-loss.txt
-          grep -F "Ваш підсумковий рахунок: 100 із 500 балів." smoke-millionaire-loss.txt
-          grep -F "ГОЛОВНЕ МЕНЮ" smoke-millionaire-loss.txt
+          grep -F "Помилка! Введіть ціле число від 1 до 4." smoke-millionaire-mixed.txt
+          grep -F "Неправильна відповідь! За це питання нараховано 0 балів." smoke-millionaire-mixed.txt
+          grep -F "Питання 5 з 5" smoke-millionaire-mixed.txt
+          grep -F "Ваш підсумковий рахунок: 100 із 500 балів." smoke-millionaire-mixed.txt
+          grep -F "ГОЛОВНЕ МЕНЮ" smoke-millionaire-mixed.txt
 
       - name: Smoke test — calculator example and precedence
         shell: bash
@@ -136,9 +137,10 @@ jobs:
       - name: Final regression — millionaire score boundaries
         shell: bash
         run: |
-          printf '\n3\n1\n\n3\n2\n3\n1\n\n0\n' |
+          printf '\n3\n1\n1\n1\n1\n1\n\n3\n2\n3\n1\n1\n1\n\n0\n' |
             dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-millionaire-scores.txt
 
+          test "$(grep -Fc "Питання 5 з 5" smoke-millionaire-scores.txt)" -eq 2
           grep -F "Ваш підсумковий рахунок: 0 із 500 балів." smoke-millionaire-scores.txt
           grep -F "Ваш підсумковий рахунок: 200 із 500 балів." smoke-millionaire-scores.txt
 

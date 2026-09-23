@@ -74,9 +74,9 @@ internal sealed class MillionaireTask : IConsoleTask
         Console.Clear();
         ConsoleHelper.WriteHeader("ЗАВДАННЯ 3. ХТО ХОЧЕ СТАТИ МІЛЬЙОНЕРОМ?");
 
-        Console.WriteLine("Відповідайте на 5 питань послідовно.");
+        Console.WriteLine("Дайте відповіді на всі 5 питань.");
         Console.WriteLine($"За кожну правильну відповідь ви отримуєте {PointsPerCorrectAnswer} балів.");
-        Console.WriteLine("Перша неправильна відповідь завершує поточну гру.");
+        Console.WriteLine("Неправильна відповідь не завершує гру — наступне питання все одно буде показано.");
         Console.WriteLine();
 
         int score = 0;
@@ -94,33 +94,38 @@ internal sealed class MillionaireTask : IConsoleTask
 
             Console.WriteLine();
 
-            if (answer != question.CorrectAnswerNumber)
+            if (answer == question.CorrectAnswerNumber)
+            {
+                score += PointsPerCorrectAnswer;
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"Правильна відповідь! Поточний рахунок: {score} балів.");
+                Console.ResetColor();
+            }
+            else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Неправильна відповідь!");
+                Console.WriteLine("Неправильна відповідь! За це питання нараховано 0 балів.");
                 Console.ResetColor();
 
                 Console.WriteLine(
                     $"Правильна відповідь: " +
                     $"{question.CorrectAnswerNumber}. " +
                     $"{question.Answers[question.CorrectAnswerNumber - 1]}");
-
-                Console.WriteLine();
-                ShowFinalScore(score);
-                ConsoleHelper.Pause();
-                return;
             }
 
-            score += PointsPerCorrectAnswer;
-
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"Правильна відповідь! Поточний рахунок: {score} балів.");
-            Console.ResetColor();
             Console.WriteLine();
         }
 
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("Вітаємо! Ви правильно відповіли на всі 5 питань!");
+        Console.ForegroundColor = score == Questions.Length * PointsPerCorrectAnswer
+            ? ConsoleColor.Green
+            : ConsoleColor.Cyan;
+
+        Console.WriteLine(
+            score == Questions.Length * PointsPerCorrectAnswer
+                ? "Вітаємо! Ви правильно відповіли на всі 5 питань!"
+                : "Гру завершено! Ви відповіли на всі 5 питань.");
+
         Console.ResetColor();
         Console.WriteLine();
 
