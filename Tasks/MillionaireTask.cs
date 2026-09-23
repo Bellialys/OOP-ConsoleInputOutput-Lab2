@@ -65,7 +65,7 @@ internal sealed class MillionaireTask : IConsoleTask
             3)
     };
 
-    // Питання адаптовано українською за мотивами реальних випусків
+    // Питання адаптовано українською з реальних випусків
     // телевікторини «Хто хоче стати мільйонером?».
     private static readonly Question[] FullGameQuestions =
     {
@@ -157,7 +157,7 @@ internal sealed class MillionaireTask : IConsoleTask
             ConsoleHelper.WriteHeader("ХТО ХОЧЕ СТАТИ МІЛЬЙОНЕРОМ?");
 
             Console.WriteLine("1. Демо-версія (навчальна) — 5 питань");
-            Console.WriteLine("2. Повна гра — 15 питань за мотивами реальних випусків");
+            Console.WriteLine("2. Повна гра — 15 питань із реальних випусків");
             Console.WriteLine("0. Повернутися до головного меню");
             Console.WriteLine();
 
@@ -180,7 +180,7 @@ internal sealed class MillionaireTask : IConsoleTask
                     RunQuiz(
                         "ПОВНА ГРА",
                         FullGameQuestions,
-                        "15 питань зі зростанням складності. Помилка не перериває гру.");
+                        "15 питань різної складності, адаптованих із реальних випусків. Помилка не перериває гру.");
                     return;
             }
         }
