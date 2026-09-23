@@ -69,10 +69,10 @@ jobs:
       - name: Smoke test — millionaire full game
         shell: bash
         run: |
-          printf '\n3\n2\n3\n2\n3\n3\n\n0\n' |
+          printf '\n3\n1\n2\n3\n2\n3\n3\n\n0\n' |
             dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-millionaire-win.txt
 
-          grep -F "Питання 1 з 5" smoke-millionaire-win.txt
+          grep -F "1. Демо-версія (навчальна) — 5 питань" smoke-millionaire-win.txt\n          grep -F "2. Повна гра — 15 питань за мотивами реальних випусків" smoke-millionaire-win.txt\n          grep -F "Питання 1 з 5" smoke-millionaire-win.txt
           grep -F "Синього та жовтого" smoke-millionaire-win.txt
           grep -F "Київ" smoke-millionaire-win.txt
           grep -F "Вітаємо! Ви правильно відповіли на всі 5 питань!" smoke-millionaire-win.txt
@@ -82,7 +82,7 @@ jobs:
       - name: Smoke test — millionaire invalid input and mixed answers
         shell: bash
         run: |
-          printf '\n3\n7\nabc\n2\n1\n1\n1\n1\n\n0\n' |
+          printf '\n3\n1\n7\nabc\n2\n1\n1\n1\n1\n\n0\n' |
             dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-millionaire-mixed.txt
 
           grep -F "Помилка! Введіть ціле число від 1 до 4." smoke-millionaire-mixed.txt
@@ -137,7 +137,7 @@ jobs:
       - name: Final regression — millionaire score boundaries
         shell: bash
         run: |
-          printf '\n3\n1\n1\n1\n1\n1\n\n3\n2\n3\n1\n1\n1\n\n0\n' |
+          printf '\n3\n1\n1\n1\n1\n1\n1\n\n3\n1\n2\n3\n1\n1\n1\n\n0\n' |
             dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-millionaire-scores.txt
 
           test "$(grep -Fc "Питання 5 з 5" smoke-millionaire-scores.txt)" -eq 2
@@ -164,3 +164,15 @@ jobs:
             echo "Found unfinished placeholder text in C# sources."
             exit 1
           fi
+
+      - name: Smoke test — millionaire full 15-question mode
+        shell: bash
+        run: |
+          printf '\n3\n2\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n1\n\n0\n' |
+            dotnet run --project OOPConsoleInputOutputLab2.csproj --configuration Release --no-build             > smoke-millionaire-full.txt
+
+          grep -F "ЗАВДАННЯ 3. ПОВНА ГРА" smoke-millionaire-full.txt
+          grep -F "Питання 15 з 15" smoke-millionaire-full.txt
+          grep -F "Гру завершено! Ви відповіли на всі 15 питань." smoke-millionaire-full.txt
+          grep -F "Ваш підсумковий рахунок:" smoke-millionaire-full.txt
+          grep -F "ГОЛОВНЕ МЕНЮ" smoke-millionaire-full.txt
