@@ -7,11 +7,27 @@ internal static class ConsoleHelper
     public static void WriteHeader(string title)
     {
         string border = new('=', HeaderWidth);
-        int leftPadding = Math.Max(0, (HeaderWidth - title.Length) / 2);
 
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine(border);
-        Console.WriteLine($"{new string(' ', leftPadding)}{title}");
+        WriteCentered(title);
+        Console.WriteLine(border);
+        Console.ResetColor();
+        Console.WriteLine();
+    }
+
+    public static void WriteMainMenuHeader(string group, string title)
+    {
+        string border = new('=', HeaderWidth);
+
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine(border);
+        WriteCentered($"ГРУПА {group}");
+
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        WriteCentered(title);
+
+        Console.ForegroundColor = ConsoleColor.Cyan;
         Console.WriteLine(border);
         Console.ResetColor();
         Console.WriteLine();
@@ -42,5 +58,11 @@ internal static class ConsoleHelper
     {
         Console.WriteLine(message);
         Console.ReadLine();
+    }
+
+    private static void WriteCentered(string text)
+    {
+        int leftPadding = Math.Max(0, (HeaderWidth - text.Length) / 2);
+        Console.WriteLine($"{new string(' ', leftPadding)}{text}");
     }
 }
